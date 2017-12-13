@@ -8,3 +8,5 @@
 
 总之：**使用一个Byte类型的变量就可以完成**
 
+（注：在C#中，有一个值类型是byte，[官方文档](https://docs.microsoft.com/zh-cn/dotnet/csharp/language-reference/keywords/byte)）
+
