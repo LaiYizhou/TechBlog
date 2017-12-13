@@ -1,4 +1,4 @@
-####1. 一个关于位运算的题目
+###1. 从“位运算”开场
 
 现在有两个变量A和B，A的取值范围是[1, 9]，B的取值范围也是[1, 9]
 
@@ -42,6 +42,94 @@ byte RIGHT_MASK = 15;
 - 取num的后四位，就是 { **return (num & RIGHT_MASK);** }
 - 修改num的前四位为value，就是 { **num = ( num& LEFT_MASK) ^ (val & RIGHT_MASK);** }
 - 修改num的后四位为value，就是 { **num = ( num& RIGHT_MASK) ^ val;** }
+
+
+
+### 2. 异或
+
+版本一问题：
+
+N个数字，其中某个数字出现了1次，剩下的都出现了2次，找个这个出现了一次的数字
+
+方法很简单：**依次异或**
+
+```c#
+int GetNum(int[] a)
+{
+  	int res = 0;
+ 	for(int i = 0; i<a.Length; i++)
+      res ^= a[i];
+  	return res;
+}
+```
+
+注：此处问题可改为“ **某个数字出现了奇数次，剩下的都出现了偶数次** ”，此方法依然有效。
+
+
+
+版本二问题：
+
+N个数字，其中某两个数字出现了1次，剩下的都出现了2次，找个这两个出现了一次的数字
+
+方法依然是：**依次异或**
+
+这时候，异或到最后得到的结果一定不等于0，换句话说，这时候的res的二进制一定含有1
+
+这时候，再构建一个变量 int rightOne = res & (~res + 1);
+
+```c#
+int[] GetTwoNum(int[] a)
+{
+  	int res = 0;
+ 	for(int i = 0; i<a.Length; i++)
+      res ^= a[i];
+  
+	int rightOne = res & (~res + 1);
+  
+  	int r1 = 0;
+  	for(int i = 0; i<a.Length; i++)
+    {
+      	if(a[i] & rightOne == 0)
+          r1 ^= a[i];
+    }
+  
+  	int[] resArr = new int[2];
+  	resArr[0] = r1;
+  	resArr[1] = r1 ^ res;
+  	
+  	return resArr;
+}
+```
+
+
+
+版本三问题：
+
+N个数字，其中某个数字出现了1次，剩下的都出现了K次，找个这个出现了一次的数字
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
