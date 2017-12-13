@@ -1,4 +1,4 @@
-###1. 从“位运算”开场
+###1. 一个“位运算”
 
 现在有两个变量A和B，A的取值范围是[1, 9]，B的取值范围也是[1, 9]
 
@@ -42,6 +42,8 @@ byte RIGHT_MASK = 15;
 - 取num的后四位，就是 { **return (num & RIGHT_MASK);** }
 - 修改num的前四位为value，就是 { **num = ( num& LEFT_MASK) ^ (val & RIGHT_MASK);** }
 - 修改num的后四位为value，就是 { **num = ( num& RIGHT_MASK) ^ val;** }
+
+
 
 
 
@@ -130,7 +132,7 @@ N个数字，其中某个数字出现了1次，剩下的都出现了K次，找�
 ##### C. List\<T>
 
 1. 上述二者的结合，既解决了“不安全”和“装箱拆箱”的问题，也解决了固定大小的问题
-2.  简而言之，可以认为是“**C#中的数组**”
+2. 简而言之，可以认为是“**C#中的数组**”
 3. 注：关于List\<T>，后续会进一步整理
 
 ##### D.其他
@@ -144,7 +146,60 @@ N个数字，其中某个数字出现了1次，剩下的都出现了K次，找�
 
 
 
-### 4. 
+
+### 4. FPS计算 
+
+FPS，就是指单位时间的帧数，换句话说，就是：帧数/秒数
+
+在Unity中，有一个`Update()`函数，真好一帧执行一次，所以，只需要在`Update()`	中写一个计数器即可
+
+```c#
+public class FPSCounter : MonoBehaviour
+{
+	private int FPS;
+	private int count = 0;
+	private float timeCount = 0;
+	
+	void Start()
+    {
+    	count = 0;
+    	timeCount = 0.0f;
+    }
+    
+    void Update()
+    {
+    	count++;
+    	timeCount += Time.unscaledDeltaTime;
+    	
+    	//表示每 0.5秒 计算一次FPS
+    	if(timeCount > 0.5f)
+        {
+        	FPS = (int)(count / timeCount);
+        	count = 0;
+        	timeCount = 0.0f;
+        	
+        	ShowFPS(FPS);
+        }
+    }
+
+}
+```
+
+其实，还有更简单的
+
+```c#
+public class FPSCounter : MonoBehaviour
+{
+	private int FPS;
+	
+    void Update()
+    {
+    	FPS = (int)(1 / Time.unscaledDeltaTime);
+        ShowFPS(FPS);
+    }
+
+}
+```
 
 
 
