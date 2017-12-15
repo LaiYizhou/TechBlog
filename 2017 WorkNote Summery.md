@@ -109,7 +109,7 @@ int[] GetTwoNum(int[] a)
 
 N个数字，其中某个数字出现了1次，剩下的都出现了K次，找出这个出现了一次的数字
 
-详见《[程序员代码面试指南——IT名企算法与数据结构题目最优解](https://github.com/LaiYizhou/2017Work)》 P329
+详见《[程序员代码面试指南——IT名企算法与数据结构题目最优解](https://github.com/LaiYizhou/2017Work/tree/master/EBooks)》 P329
 
 
 
@@ -261,4 +261,4 @@ int Partition(ref List<T> list, int left, int right)
 }
 ```
 
-还有一种`Partition()` 实现方法，详见《剑指Offer》P63
+还有一种`Partition()` 实现方法，详见《[剑指Offer](https://github.com/LaiYizhou/2017Work/tree/master/EBooks)》P63
