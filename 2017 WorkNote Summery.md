@@ -209,5 +209,56 @@ public class FPSCounter : MonoBehaviour
 
 
 
-### 6. 排序
+### 6. 快速排序
 
+其实快排有一个关键的函数，叫`Partition()`, 它返回的是pivot的位置
+
+然后就可以递归调用`QuickSort()`了
+
+先说，QuickSort()
+
+```c#
+void QuickSort(ref List<T> list, int left, int right)
+{
+  	if(left >= right)
+      return;
+  	
+  	//关键就在于这个函数
+  	int index = Partition(ref list, left, right);
+  	
+  	QuickSort(ref list, left, index-1);
+  	QuickSort(ref list, index+1, right);
+}
+```
+
+接下来，就是Partition()，有两种实现方式，说一种比较好理解的：
+
+```c#
+int Partition(ref List<T> list, int left, int right)
+{
+  	int i = left;
+  	int j = right;
+  	
+  	while(i!=j)
+    {
+      	while(j>i && list[j] >= pivot)
+          j--;
+      	while(j>i && list[i] <= pivot)
+          i++;
+      
+      	T temp = list[j];
+      	list[j] = list[i];
+      	list[i] = temp;
+    }
+  
+  	T pivot = list[left];
+  
+  	list[left] = list[i];
+  	list[i]=  pivot;
+  
+  	return i;
+  	
+}
+```
+
+还有一种`Partition()` 实现方法，详见《剑指Offer》P63
