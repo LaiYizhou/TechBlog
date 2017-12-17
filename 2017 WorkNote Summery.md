@@ -292,3 +292,44 @@ int Partition(ref List<T> list, int left, int right)
 `static readonly`和`const` 确实是太像了，除了在上述理论说的那些区别之外
 
 在写代码的时候，**几乎**是可以混用的。（因为都相似到：都可以**直接通过类名来访问**了）
+
+
+
+### 8. Animator面板属性
+
+Animator是Unity3D在4.6版本之后添加的，可以用来管理多个Animation
+
+其面板中，有五个属性：
+
+- Controller：这个属性一般显示着当前GameObject的名字，双击会打开Animator面板
+- Avatar：（跟人物动画的骨骼有关）
+- Apply Root Motion：默认不勾选，不勾选意味着在该物体的Transform可以通过脚本控制
+- Update Mode：枚举类型
+  - Normal：表示使用Update进行更新
+  - Animate Physics：表示使用FixUpdate进行更新（一般用在和物体有交互的情况下）
+  - Unscale Time：表示无视timeScale进行更新（一般用在UI动画中）
+- Culling Mode：枚举类型
+  - Always Animate：当物体不在视野内时，动画也播放
+  - Cull Update Transform：当物体不在视野内时，Retarget动画、 IK动画和Transform的脚本控制都无效
+  - Cull Completely：当物体不在视野内时，动画完全停止
+
+上述笔记，参考链接如下：
+
+1. （官方手册）：https://docs.unity3d.com/Manual/class-Animator.html
+2.  https://www.cnblogs.com/hammerc/p/4828774.html
+3.  https://www.cnblogs.com/bearhb/p/4519458.html
+
+
+
+### 9. 长按和点击事件
+
+参考链接为：http://www.jarcas.com/studios/?p=212
+
+直接在GameObject添加如下脚本，然后再绑定对应的响应方法即可：
+
+https://github.com/LaiYizhou/2017Work/blob/master/Scripts/LongPressOrClickEventTrigger.cs
+
+
+
+### 10. 正则表达式
+
