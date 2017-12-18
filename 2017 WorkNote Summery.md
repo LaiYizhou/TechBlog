@@ -316,8 +316,9 @@ Animator是Unity3D在4.6版本之后添加的，可以用来管理多个Animatio
 上述笔记，参考链接如下：
 
 1. （官方手册）：https://docs.unity3d.com/Manual/class-Animator.html
-2.  https://www.cnblogs.com/hammerc/p/4828774.html
-3.  https://www.cnblogs.com/bearhb/p/4519458.html
+2. https://www.cnblogs.com/hammerc/p/4828774.html
+3. https://www.cnblogs.com/bearhb/p/4519458.html
+
 
 
 
@@ -332,4 +333,231 @@ https://github.com/LaiYizhou/2017Work/blob/master/Scripts/LongPressOrClickEventT
 
 
 ### 10. 正则表达式
+
+
+
+### 11. Invoke() 
+
+这是一个Unity3D自带的延迟执行方法，继承了MonoBehavior的脚本都可以调用
+
+- public void [Invoke](https://docs.unity3d.com/ScriptReference/MonoBehaviour.Invoke.html) (string methodName, float time);
+
+  意思是：在time（单位秒）后，执行methodName；
+
+初此之外，还有几个方法：
+
+- [InvokeRepeating](https://docs.unity3d.com/ScriptReference/MonoBehaviour.InvokeRepeating.html)
+- [CancelInvoke](https://docs.unity3d.com/ScriptReference/MonoBehaviour.CancelInvoke.html)
+- [IsInvoking](https://docs.unity3d.com/ScriptReference/MonoBehaviour.IsInvoking.html)
+
+笔记中显示，`InvokeRepeating()`  和  `Invoke()` 用得最频繁，当然，是需要`CancelInvoke()` 配合
+
+
+
+### 12. int变量
+
+1. 用一个int变量表示**时间**
+   - 时间戳
+2. 用一个int变量表示**概率**
+   - 在游戏中碰到，因为概率都比较，如果使用float变量都快趋近于0le
+   - int p = 120，可以与团队约定，意思为：万分之一百二
+
+
+
+### 13. A*算法
+
+
+
+### 14. 小数点和千位符
+
+主要就是：`3.000` 和 `3,000`的区别
+
+通常，前者是：三；后者是：三千
+
+但需要注意的是，有些地区的习惯是：`.` 是千位符，`,`是小数点意义
+
+
+
+### 15. CanvasGroup
+
+CanvasGroup，可见官方文档：<https://docs.unity3d.com/Manual/class-CanvasGroup.html>
+
+大概类似于“在PS里面的图层文件夹上修改属性”，一旦修改，所有子物体全部生效
+
+只不过它控制的属性比较少，只有四种
+
+- Alpha：透明度通道
+- Interactable：是否响应UI输入事件（Button组件上也有这个属性）
+- Block Raycasts：是否响应鼠标射线（因为在游戏中不是每个元素都是UI的）
+- Ignore Parent Groups
+
+官网说，常见的用法有三种：
+
+- 第一种，通过Alpha属性来实现淡入淡出效果
+- 第二种，通过Interactable属性来控制所有子物体的UI输入
+- 第三种，把Block Raycasts设为false，这样射线就可以透过该物体，不会“遮挡”
+
+此外，据说（https://www.cnblogs.com/wangzy-88/p/6270431.html），当不可见一个GameObject的时候，可以`gameObject.setActive(false/true)`， 也可以`canvasGroup.alpha = 1.0f(0.0f);`， **后者性能更好**
+
+
+
+UI淡入淡出效果：（DOTween和CanvasGroup配合）
+
+```c#
+Sequence uiMoveSequence = DOTween.Sequence();
+uiMoveSequence.Append(canvasGroup.DOFade(0.01f, 0.5f) );
+
+uiMoveSequence.AppendCallback(() =>
+  {
+      this.gameObject.SetActive(false);
+      canvasGroup.alpha = 1.0f;
+  }
+);
+```
+
+
+
+### 16. 有趣的重载
+
+Random类，官方文档：https://docs.unity3d.com/ScriptReference/Random.html
+
+注：这里指的是**UnityEngine**里面的`Random`类，因为C#库里也有`Random`类
+
+里面有一个方法，是个静态（static）方法：`Range()`
+
+- public static float Range(float min, float max);
+- public static int Range(int min, int max);
+
+结论是：
+
+- Random.Range(int a, int b)
+
+  那么，取值范围为：[ a , b） , 即，**前闭后开**
+
+- Random.Range(float a, float b)
+
+  那么，取值范围为：[ a , b ] , 即，**前闭后闭**
+
+
+
+对于int参数前闭后开的情况，配合枚举，有一个用处：
+
+```c#
+public enum EColor
+{
+  	RED,
+  	GREEN,
+  	YELLOW,
+  	
+  	Count
+}
+```
+
+这时候，EColor.Count 的自然意思便是：颜色的种数
+
+然后，随机生成一种颜色，`EColor color = (EColor)(Random.Range(0, (int)EColor.Count));` 即可
+
+一来，后续添加颜色直接在Count之前添加即可；二来，EColor.Count正好不包括，不会“越界”
+
+
+
+### 17. Enum转换
+
+enum转换，一般也就跟 int 和 string 转换
+
+其中，跟int转换是可以**双向强行转换**的，所以不必过多介绍
+
+比如：`int a = (int)EColor.RED;`  或者 `EColor color = (EColor)2;`
+
+此外，对于从enum转成string，直接`.ToString()`就可以了
+
+关键是：**从string转成enum**
+
+利用Enum的静态方法：`EColor color = (EColor) Enum.Parse( typeof(EColor), "GREEN");`
+
+
+
+### 18. Tranform/GameObject.Find()
+
+在Hierarchy面板中，如果checkbox去掉了（也就是false了）
+
+`Tranform.Find("xxx")`  是可以找到的；`GameObject.Find("xxx")` 是找不到的
+
+不过，像这样直接按name查找物体的情况，还是非常少的
+
+
+
+### 19. Parse() / TryParse()
+
+先说这两个静态方法，其实也很好说清楚：用来把string转成int
+
+区别在于：
+
+- Parse() 通过返回值来返回转换结果，比如，`int num = int.Parse("12");`，如果转换失败，报异常即可
+- TryParse() 通过参数来返回转换结果，比如，`int.TryParse("12", out number);` ，如果转换失败，number则为0，同时返回false
+
+此外，据说，TryParse()的效率比Parse()要好一点点
+
+但是，重要的是：什么时候用TryParse()？什么时候用Parse() ？
+
+有一个“软件工程”的思想是：如果读取某个指定的文件时，建议用Parse()，因为一旦报错，说明数据源头出了问题，可以检查，而且需要检查的是数据源，而不是修改代码为TryParse()；如果是读取用户输入等情况，建议用TryParse()
+
+
+
+### 20. GetComponentsInChildren\<T>();
+
+三点说明：
+
+1. 返回的是一个数组，而不是List
+
+   ```c#
+   Image[] Images = this.transform.GetComponentsInChildren<Image>();
+   ```
+
+   虽然从数组到List，使用LINO语句，就一个后缀的问题，比如
+
+   ```c#
+   List<Image> imagesList = this.transform.GetComponentsInChildren<Image>().ToList();
+   ```
+
+2. 数组中的查找范围包含“自己”，同时也包含“孩子的孩子”，而且根据返回的数组结果，是**深度优先**
+
+3. 如果一个“孩子”是false，那么，其上的组件将无法获取
+
+   但是！！！ 
+
+   该方法有重载：**传入参数true，即可获取**（当然，默认为false）
+
+   ```c#
+   Image[] Images = this.transform.GetComponentsInChildren<Image>(true);
+   ```
+
+   ​
+
+### 21. 打乱数组
+
+目前是这样实现，代码如下：
+
+```c#
+private void Shuffle<T>(ref List<T> list)
+{
+    for (int i = 0; i < list.Count; i++)
+    {
+      var temp = list[i];
+      int randomIndex = Random.Range(0, list.Count);
+      list[i] = list[randomIndex];
+      list[randomIndex] = temp;
+    }
+}
+```
+
+
+
+
+
+
+
+
+
+
 
