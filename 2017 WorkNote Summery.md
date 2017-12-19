@@ -1,4 +1,4 @@
-###1. 一个“位运算”
+###1. 算法知识：位运算
 
 现在有两个变量A和B，A的取值范围是[1, 9]，B的取值范围也是[1, 9]
 
@@ -553,9 +553,98 @@ private void Shuffle<T>(ref List<T> list)
 
 
 
+### 22. 算法题：在无序数列中，找到最小的K个数
 
+目前最优的是O(KlogN)，即：**堆排序**
 
+大概的思想就是：利用一个容量为K的堆，然后遍历原数列，见到一个插入一个，堆会自行调整。
 
+所以，关键在于：如何实现堆？
+
+先说主函数：
+
+```c#
+int[] arr = new int[]{3,4,2,1,5};
+
+List<int> Heap = new List<int>();
+
+public List<int> GetMinKNumbers(int k)
+{
+  	for(int i = 0; i<arr.Length; i++)
+      	InsertHeap(arr[i]);
+  
+  	return Heap;
+}
+```
+
+堆的实现，两点：
+
+- 当还没满（Heap.Count<=k）的时候，重点是**插入**；
+- 满了（Heap.Count>k）之后，重点是**调整**
+
+```c#
+void InsertHeap(int num)
+{
+  	if(Heap.Count<=k)
+    {
+      	Heap.Add(num);
+      	int index = Heap.Count-1;
+      	int parent = (index-1) / 2;	
+      
+      	while(NumIndex!=0)
+        {
+          	parent = (index-1) / 2;
+          	if(arr[parent] < arr[index])
+            {
+               	int temp = arr[parent];
+              	arr[parent] = arr[index];
+              	arr[index] = temp;
+              
+              	index = parent;
+            }
+          	else
+              break;
+        }
+      
+    }
+  	else
+    {
+      	Heap[0] = num;
+      	int index = 0;
+      	int left = index * 2 + 1;
+      	int right = index * 2 - 1;
+      	
+      	int largest = index;
+      
+      	while(left < Heap.Count && right < Heap.Count)
+        {
+          	// 这个函数：看原数组index, left, right哪个最大
+          	// 注意：比较的是数，返回的是下标 （函数略）
+          	largest = getMax(index, left, right);
+          	
+          	if(largest!=index)
+            {
+              	int temp = arr[largest];
+            	arr[largest] = arr[index];
+            	arr[index] = temp;
+            }
+          	else
+              	break;
+          	
+          
+          	index = largest;
+          	int left = index * 2 + 1;
+      		int right = index * 2 - 1;
+        }
+       	
+    }
+}
+```
+
+现在看来，这道题的关键知识点在于：**父子节点的索引关系**
+
+-  子：index；那么，父：**(index-1) / 2;**
+-  父：index；那么，左子：**index * 2 + 1**；右子：**index * 2 - 1**;
 
 
 
