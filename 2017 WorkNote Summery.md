@@ -139,10 +139,16 @@ N个数字，其中某个数字出现了1次，剩下的都出现了K次，找�
 
 1. 其他包括：
    - 双向链表LinkedList\<T>
+
    - 队列 Queue\<T> 
+
    - 栈Stack\<T>
+
    - 哈希表Hashtable
-   - 字典Dictionary\<K, T>
+
+   - 字典Dictionary\<K, T> 
+
+     *（更多详见第 25）*
 
 
 
@@ -649,4 +655,59 @@ void InsertHeap(int num)
 
 
 
+### 23. 2048游戏
 
+工程源码如下：https://github.com/LaiYizhou/2017Work/blob/master/Scripts/2048Game.rar
+
+
+
+### 24. DoTween 
+
+Unity3D的一款插件，商店链接：[https://www.assetstore.unity3d.com/cn/#!/content/27676](https://www.assetstore.unity3d.com/cn/#!/content/27676)
+
+DoTween的官方网站：http://www.demigiant.com/
+
+DoTween的官方文档：http://dotween.demigiant.com/documentation.php
+
+目前发现值得注意之处是：
+
+- DOTween和动画设为一个层级，可能会有些问题；为了避免万一，**建议设为父子层级**
+
+
+
+### 25. HashTable 和 Dictionary 
+
+都是**键值对**
+
+有如下区别：
+
+-  HashTable不支持泛型，Dictionary支持泛型
+- 因为HashTable不支持泛型，所以，所有对象都当作Object存入，则会引起装箱/拆箱操作（同理于ArrayList，*详见第 3*）
+- HashTable是线程安全的，Dictionary则不是，如果需要，则必须人为使用互斥机制保护
+
+所以，结论是：
+
+- 如果是单线程，推荐Dictionary
+- 此外，如果Key属于字符串类型，可以考虑使用HashTable
+
+
+
+### 26. HashSet 和 SortedSet
+
+但凡叫set的，一般都是指：**无重复**；（因为set翻译成数学上的“集合”）
+
+C#的里面set，是HashSet和SortedSet。（没有一个容器叫set，set是C++里的）
+
+不严谨得来说：HashSet是**无序不重复**的List；SortedSet是**有序不重复**的List
+
+其实，HashSet之所以叫Hash，那是因为它跟Hash有关，实际上，它是一个只有Key、没有Value的HashTable，所以性能与HashTable相仿。
+
+所以，这才是HashSet和List的最大区别：
+
+- List毕竟类似于数组，所以内存连续；HashSet类似于哈希表，所以内存不连续
+
+所以，即便想要不重复或者排好序的List，更推荐使用List，并进行人为筛选或者排序；
+
+（List里有 `.Contain()` 和  `.Sort()`）
+
+因为，**HashSet无法从指定位置访问元素**。
