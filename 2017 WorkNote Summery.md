@@ -675,6 +675,8 @@ DoTween的官方文档：http://dotween.demigiant.com/documentation.php
 
 
 
+
+
 ### 25. HashTable 和 Dictionary 
 
 都是**键值对**
@@ -682,13 +684,15 @@ DoTween的官方文档：http://dotween.demigiant.com/documentation.php
 有如下区别：
 
 -  HashTable不支持泛型，Dictionary支持泛型
-- 因为HashTable不支持泛型，所以，所有对象都当作Object存入，则会引起装箱/拆箱操作（同理于ArrayList，*详见第 3*）
-- HashTable是线程安全的，Dictionary则不是，如果需要，则必须人为使用互斥机制保护
+-  因为HashTable不支持泛型，所以，所有对象都当作Object存入，则会引起装箱/拆箱操作（同理于ArrayList，*详见第 3*）
+-  HashTable是线程安全的，Dictionary则不是，如果需要，则必须人为使用互斥机制保护
 
 所以，结论是：
 
 - 如果是单线程，推荐Dictionary
 - 此外，如果Key属于字符串类型，可以考虑使用HashTable
+
+
 
 
 
@@ -710,4 +714,69 @@ C#的里面set，是HashSet和SortedSet。（没有一个容器叫set，set是C+
 
 （List里有 `.Contain()` 和  `.Sort()`）
 
-因为，**HashSet无法从指定位置访问元素**。
+因为，**HashSet无法从指定位置访问元素**，而HashSet更大的用途范围在于：集合运算（如并集、交集等）
+
+
+
+### 27. 矩阵乘法
+
+比如，以下两个矩阵相乘：
+$$
+\begin{bmatrix}
+   1 & 0 \\
+   -3 & 1 \\
+  \end{bmatrix} \times
+  \begin{bmatrix}
+   1 & 2 & 3 \\
+   3 & 4 & 5 \\
+  \end{bmatrix}
+$$
+结论：矩阵的乘法，是基于 **单行乘法**，也就是 **行的合并**（行是左乘）
+
+
+
+先说 单行乘法：
+$$
+\begin{bmatrix}
+   1 & 0 \\
+  \end{bmatrix} \times
+  \begin{bmatrix}
+   1 & 2 & 3 \\
+   3 & 4 & 5 \\
+  \end{bmatrix}
+$$
+应该视为：**带系数的第一行和带系数的第二行，进行合并**
+
+
+$$
+\begin{bmatrix}
+   1 & 0 \\
+  \end{bmatrix} \times
+  \begin{bmatrix}
+   1 & 2 & 3 \\
+   3 & 4 & 5 \\
+  \end{bmatrix}
+  =1 \times
+  \begin{bmatrix}
+   1 & 2 & 3 \\
+  \end{bmatrix}
+  + 0 \times
+  \begin{bmatrix}
+ 3 & 4 & 5\\
+  \end{bmatrix}
+  =
+  \begin{bmatrix}
+   1 & 2 & 3\\
+  \end{bmatrix}
+$$
+
+
+于是，基于此 单行乘法：
+
+- 把第一行运算的结果放在第一行，把第二行运算的结果放在第二行，以此类推
+- 列运算同理，带系数的第一列和带系数的第二列，进行合并，**列的合并**（列是右乘）
+
+
+
+
+
