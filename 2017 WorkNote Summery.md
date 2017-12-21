@@ -1,4 +1,4 @@
-###1. 算法知识：位运算
+###1. 算法：位运算
 
 现在有两个变量A和B，A的取值范围是[1, 9]，B的取值范围也是[1, 9]
 
@@ -370,6 +370,8 @@ https://github.com/LaiYizhou/2017Work/blob/master/Scripts/LongPressOrClickEventT
 
 
 
+
+
 ### 13. A*算法
 
 
@@ -539,6 +541,20 @@ enum转换，一般也就跟 int 和 string 转换
    ```
 
    ​
+
+此外，顺便说一下：数组的`ToList()`
+
+有时候在读取XML和`string.Split()` 一起使用，需要注意的是：
+
+```c#
+string s = "";
+string[] sArray = s.Split(',');
+List<string> l = sArray.ToList();
+```
+
+此时，`l.Count = 1`。
+
+
 
 ### 21. 打乱数组
 
@@ -775,6 +791,126 @@ $$
 
 - 把第一行运算的结果放在第一行，把第二行运算的结果放在第二行，以此类推
 - 列运算同理，带系数的第一列和带系数的第二列，进行合并，**列的合并**（列是右乘）
+
+
+
+
+### 28. 拓展方法
+
+拓展方法，看上去像：带this的参数
+
+拓展方法是基于如下情况：有一个类`A`， 里面有方法`f1()`、`f2()`， 现在还需要一个方法`f3()`，怎么处理？
+
+- 最简单直接的方法便是，直接修改类`A`的代码，加入`f3()`即可
+- 其次，写一个子类`AChild`继承`A`，然后再子类中加入`f3()`
+
+但上述情况，有限制条件，比如，无法修改代码或者无法派生子类（比如 seal）
+
+可以考虑第三种解决办法：使用拓展方法
+
+拓展方法：**两个static + 一个this**
+
+```c#
+static class B
+{
+  	public static f3(this A)
+    {
+       ....
+    }
+}
+```
+
+这样以后，`A.f1()`、`A.f2()`没有问题，同时，`A.f3()` 也没有问题
+
+
+
+**举例**：
+
+DoTween插件，就是如此
+
+```c#
+public static Tweener DOIntensity(this Light target, float endValue, float duration);
+```
+
+意思是`Light` 这个类，增加了一个名叫 `DOIntensity` 的静态方法，所以，直接调用即可
+
+```c#
+ Light.DOIntensity(1.0f, 1.5f); 
+```
+
+
+
+###29. 协程和inactive
+
+简单来说，就是：
+
+- 如果一个GameObject上挂着某个脚本，GameObject是inactive，那么，该脚本里的协程无法调用
+
+  调用时，会报error
+
+  ```
+  Coroutine couldn't be started because the the game object 'Image' is inactive!
+  ```
+
+- 如果一个GameObject上挂着某个脚本，在StartCoroutine()之后，再setActive(false)
+
+  虽然不会报error，但协程里的代码也继续跑下去
+
+（推荐阅读：http://www.theappguruz.com/blog/how-to-use-coroutines-in-unity）
+
+
+
+### 30. 子类和父类
+
+虽然，C#中也称呼“派生类”和“基类”
+
+- 子类转父类，是可以随意转换，而且是自动转换的
+- 父类转子类，需要强行转换，还不一定成功；如果，这个父类是被子类赋值过的，那么，才可以转换成功
+
+很好理解，子类中至少不少于父类的方法
+
+比如，`Duck`  可以 `Swim()`， 不代表 `Animal` 可以 `Swim()`
+
+所以， `Duck` 转成 `Animal` 是可以的，反正 `Animal` 里面也没有 `Swim()`，反之则不然。
+
+但是， `Animal a = new Duck()` 之后，再把 `a` 转成 `Duck` 自然是没有问题的。
+
+（ 注：涉及到类型转换，可以考虑`as`运算符）
+
+
+
+### 31. 余弦距离
+
+余弦距离就是：
+$$
+cos\theta = 
+\frac{\vec{a} · \vec{b}}
+{|\vec{a}| · |\vec{b}|}
+$$
+比如，有6位用户，各自评论了6本书
+
+|       | Book1 | Book2 | Book3 | Book4 | Book5 | Book6 |
+| :---: | :---: | :---: | :---: | :---: | :---: | :---: |
+| User1 |   4   |   3   |       |       |   5   |       |
+| User2 |   5   |       |   4   |       |   4   |       |
+| User3 |   4   |       |   5   |   3   |   4   |       |
+| User4 |       |   3   |       |       |       |   5   |
+| User5 |       |   4   |       |       |       |   4   |
+| User6 |       |       |   2   |   4   |       |   5   |
+
+那么，可以把评分视为向量 u1 = {4, 3, 0, 0, 5, 0}，u2 = {5, 0, 4, 0, 4, 0} ，诸如此类
+
+然后计算u1、u2各向量之间的余弦距离
+
+结论是：**余弦距离越小，用户相似度越高。**
+
+
+
+### 32. Unity3D 破解
+
+推荐链接：http://www.ceeger.com/forum/read.php?tid=23396&fid=8
+
+
 
 
 
