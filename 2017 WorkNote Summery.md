@@ -912,7 +912,48 @@ $$
 
 
 
+### 33. 关于Unity3D优化推荐链接
+
+1. 《 干货：Unity游戏开发图片纹理压缩方案 》
+
+   https://zhuanlan.zhihu.com/p/25205686
+
+2. 《Optimizing the size of the built iOS player》（官方文档）
+
+    https://docs.unity3d.com/Manual/iphone-playerSizeOptimization.html
+
+3. 《Reducing the file size of your build》（官方文档）
+
+   https://docs.unity3d.com/Manual/ReducingFilesize.html
+
+4. 《 Unity优化百科（UWA博客目录）》
+
+   https://blog.uwa4d.com/archives/Index.html
 
 
 
+### 34. 算法题：旋转词
+
+题目：判断string a 和 string b 是否为旋转词
+
+【结论】**只需要 `string s = b+b`，然后判断 s是否包含a（例如C#中，判断`s.IndexOf(a) == -1`）即可**
+
+
+
+### 35. LINQ
+
+官方网址：<https://docs.microsoft.com/zh-cn/dotnet/csharp/programming-guide/concepts/linq/>
+
+举个例子：翻转string
+
+```c#
+public string Reverse(string s)
+{
+  	return new string(s.ToCharArray().Reverse().ToArray());
+}
+```
+
+
+
+### 36. XML中的 XDocument
 
