@@ -932,6 +932,8 @@ $$
 
 
 
+
+
 ### 34. 算法题：旋转词
 
 题目：判断string a 和 string b 是否为旋转词
@@ -956,4 +958,83 @@ public string Reverse(string s)
 
 
 ### 36. XML中的 XDocument
+
+
+
+### 37. List\<T>的Sort()
+
+“正常”的List，比如，`List<int> l1 = new List<int>(){12, 9, 13, 45, 33};`
+
+对于排序，只需要 `l1.Sort()` 即可，使用了默认的比较器
+
+对于需要自己实现的比较器，可以配合着 Lambda表达式，简化不少，直接在括号里写出来
+
+比如
+
+```c#
+List<Films> filmList = new List<Films>() { …… };
+
+filmList.Sort((f1, f2) => {f1.Name.CompareTo(f2.Name)} );
+```
+
+或者
+
+```c#
+List<Object> l1 = new List<Object>(){ …… };
+
+l1.Sort((g1, g2) => {
+  	……
+});
+```
+
+
+
+### 38. NormalizedPosition
+
+Unity3D的UI里，有一个类 ScrollRect
+
+里面有三个 *NormalizedPosition 属性，表示滑动窗口的相对位置，都是**[0, 1]**的范围
+
+- NormalizedPosition：是一个Vector2，起点在**左下角**
+- horizontalNormalizedPosition：是一个float，起点是**左端**
+- verticalNormalizedPosition：是一个float，起点是**下端**
+
+比如，在做“游戏长地图推图”模式的时候，可以控制视窗（viewport）滑动的相对位置
+
+
+
+### 39. TransformPoint()和InverseTransformPoint()
+
+这两个方法是Transform下的方法，用法解释很简单
+
+- TransformPoint()
+
+  在A下面，有一个相对坐标为（3, 3, 3）的点，求它的世界坐标
+
+  ```c#
+  Vector3 worldV = ATransform.TransformPoint(new Vector(3.0f, 3.0f, 3.0f));
+  ```
+
+- InverseTransformPoint()
+
+  在世界坐标系中，有一个点是（100, 200, 10），求它相对B物体的相对坐标
+
+  ```c#
+  Vector3 localV = BTransform.nverseTransformPoint(new Vector(100.0f, 200.0f, 10.0f));
+  ```
+
+
+
+补充两点：
+
+- 坐标的转化结果，会受到坐标系的缩放的影响
+- 可以用在：A物体下的点，想知道它相对B物体的相对坐标；此时，可以通过A转成世界坐标，再从世界坐标转成B物体下的相对坐标
+
+
+
+那么，现在假设一个场景：A物体下有一个子物体B
+
+此时：`ATransform.TransformPoint(BTransform.localPositon)`  一定等于 `BTransform.position`
+
+
 
