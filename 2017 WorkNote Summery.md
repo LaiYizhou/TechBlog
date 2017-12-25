@@ -959,6 +959,8 @@ public string Reverse(string s)
 
 ### 36. XML中的 XDocument
 
+C#官方文档：https://msdn.microsoft.com/zh-cn/library/system.xml.linq.xdocument.aspx
+
 
 
 ### 37. List\<T>的Sort()
@@ -1035,6 +1037,3 @@ Unity3D的UI里，有一个类 ScrollRect
 那么，现在假设一个场景：A物体下有一个子物体B
 
 此时：`ATransform.TransformPoint(BTransform.localPositon)`  一定等于 `BTransform.position`
-
-
-
