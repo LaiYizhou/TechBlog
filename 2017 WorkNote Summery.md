@@ -613,7 +613,7 @@ void InsertHeap(int num)
       	int index = Heap.Count-1;
       	int parent = (index-1) / 2;	
       
-      	while(NumIndex!=0)
+      	while(index!=0)
         {
           	parent = (index-1) / 2;
           	if(arr[parent] < arr[index])
