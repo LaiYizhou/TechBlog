@@ -634,7 +634,7 @@ void InsertHeap(int num)
       	Heap[0] = num;
       	int index = 0;
       	int left = index * 2 + 1;
-      	int right = index * 2 - 1;
+      	int right = index * 2 + 2;
       	
       	int largest = index;
       
@@ -655,8 +655,8 @@ void InsertHeap(int num)
           	
           
           	index = largest;
-          	int left = index * 2 + 1;
-      		int right = index * 2 - 1;
+          	left = index * 2 + 1;
+      		right = index * 2 + 2;
         }
        	
     }
@@ -666,7 +666,7 @@ void InsertHeap(int num)
 现在看来，这道题的关键知识点在于：**父子节点的索引关系**
 
 -  子：index；那么，父：**(index-1) / 2;**
--  父：index；那么，左子：**index * 2 + 1**；右子：**index * 2 - 1**;
+-  父：index；那么，左子：**index * 2 + 1**；右子：**index * 2 + 2 **;
 
 
 
