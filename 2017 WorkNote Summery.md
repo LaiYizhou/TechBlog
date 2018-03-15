@@ -666,7 +666,7 @@ void InsertHeap(int num)
 现在看来，这道题的关键知识点在于：**父子节点的索引关系**
 
 -  子：index；那么，父：**(index-1) / 2;**
--  父：index；那么，左子：**index * 2 + 1**；右子：**index * 2 + 2 **;
+-  父：index；那么，左子：**index * 2 + 1**；右子：**index * 2 + 2** ;
 
 
 
