@@ -242,6 +242,7 @@ void QuickSort(ref List<T> list, int left, int right)
 ```c#
 int Partition(ref List<T> list, int left, int right)
 {
+    T pivot = list[left];
   	int i = left;
   	int j = right;
   	
@@ -256,8 +257,6 @@ int Partition(ref List<T> list, int left, int right)
       	list[j] = list[i];
       	list[i] = temp;
     }
-  
-  	T pivot = list[left];
   
   	list[left] = list[i];
   	list[i]=  pivot;
@@ -839,11 +838,13 @@ DoTween插件，就是如此
 public static Tweener DOIntensity(this Light target, float endValue, float duration);
 ```
 
-意思是`Light` 这个类，增加了一个名叫 `DOIntensity` 的静态方法，所以，直接调用即可
+意思是`Light` 这个类，增加了一个名叫 `DOIntensity` 的静态方法。
 
 ```c#
  Light.DOIntensity(1.0f, 1.5f); 
 ```
+
+所以，直接调用即可。
 
 
 
