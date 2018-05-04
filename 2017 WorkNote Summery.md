@@ -631,34 +631,41 @@ void InsertHeap(int num)
     }
   	else
     {
-      	Heap[0] = num;
-      	int index = 0;
-      	int left = index * 2 + 1;
-      	int right = index * 2 + 2;
-      	
-      	int largest = index;
-      
-      	while(left < Heap.Count && right < Heap.Count)
+        if (num < Heap[0])
         {
-          	// 这个函数：看原数组index, left, right哪个最大
-          	// 注意：比较的是数，返回的是下标 （函数略）
-          	largest = getMax(index, left, right);
-          	
-          	if(largest!=index)
+            Heap[0] = num;
+            int index = 0;
+            int left = index * 2 + 1;
+            int right = index * 2 + 2;
+
+            while(left < Heap.Count)
             {
-              	int temp = arr[largest];
-            	arr[largest] = arr[index];
-            	arr[index] = temp;
+                // 这个函数：看原数组index, left, right哪个最大
+                // 注意：比较的是数，返回的是下标 （函数略）
+                // largest = getMax(index, left, right);
+                
+                int larget = index;
+                if (heap[left] > heap[larget])
+                    larget = left;
+                if (right < heap.Count && heap[right] > heap[larget])
+                    larget = right;
+
+                if(largest!=index)
+                {
+                    int temp = arr[largest];
+                    arr[largest] = arr[index];
+                    arr[index] = temp;
+                }
+                else
+                    break;
+
+
+                index = largest;
+                left = index * 2 + 1;
+                right = index * 2 + 2;
             }
-          	else
-              	break;
-          	
-          
-          	index = largest;
-          	left = index * 2 + 1;
-      		right = index * 2 + 2;
         }
-       	
+      	
     }
 }
 ```
