@@ -253,9 +253,12 @@ int Partition(ref List<T> list, int left, int right)
       	while(j>i && list[i] <= pivot)
           i++;
       
-      	T temp = list[j];
-      	list[j] = list[i];
-      	list[i] = temp;
+        if(i < j)
+        {
+            T temp = list[j];
+      		list[j] = list[i];
+      		list[i] = temp;
+        }	
     }
   
   	list[left] = list[i];
