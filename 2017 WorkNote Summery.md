@@ -618,11 +618,11 @@ void InsertHeap(int num)
       	while(index!=0)
         {
           	parent = (index-1) / 2;
-          	if(arr[parent] < arr[index])
+          	if(Heap[parent] < Heap[index])
             {
-               	int temp = arr[parent];
-              	arr[parent] = arr[index];
-              	arr[index] = temp;
+               	int temp = Heap[parent];
+              	Heap[parent] = Heap[index];
+              	Heap[index] = temp;
               
               	index = parent;
             }
@@ -647,16 +647,16 @@ void InsertHeap(int num)
                 // largest = getMax(index, left, right);
                 
                 int larget = index;
-                if (heap[left] > heap[larget])
+                if (Heap[left] > Heap[larget])
                     larget = left;
-                if (right < heap.Count && heap[right] > heap[larget])
+                if (right < Heap.Count && Heap[right] > Heap[larget])
                     larget = right;
 
                 if(largest!=index)
                 {
-                    int temp = arr[largest];
-                    arr[largest] = arr[index];
-                    arr[index] = temp;
+                    int temp = Heap[largest];
+                    Heap[largest] = Heap[index];
+                    Heap[index] = temp;
                 }
                 else
                     break;
