@@ -407,7 +407,7 @@ CanvasGroup，可见官方文档：<https://docs.unity3d.com/Manual/class-Canvas
 - 第二种，通过Interactable属性来控制所有子物体的UI输入
 - 第三种，把Block Raycasts设为false，这样射线就可以透过该物体，不会“遮挡”
 
-此外，据说（https://www.cnblogs.com/wangzy-88/p/6270431.html），当不可见一个GameObject的时候，可以`gameObject.setActive(false/true)`， 也可以`canvasGroup.alpha = 1.0f(0.0f);`， **后者性能更好**
+此外，据说（https://www.cnblogs.com/wangzy-88/p/6270431.html ），当不可见一个GameObject的时候，可以`gameObject.setActive(false/true)`， 也可以`canvasGroup.alpha = 1.0f(0.0f);`， **后者性能更好**
 
 
 
