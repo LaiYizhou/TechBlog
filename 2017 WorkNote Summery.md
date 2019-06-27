@@ -243,28 +243,16 @@ void QuickSort(ref List<T> list, int left, int right)
 int Partition(ref List<T> list, int left, int right)
 {
     T pivot = list[left];
-  	int i = left;
-  	int j = right;
-  	
-  	while(i!=j)
+    while(left < right)
     {
-      	while(j>i && list[j] >= pivot)
-          j--;
-      	while(j>i && list[i] <= pivot)
-          i++;
-      
-        if(i < j)
-        {
-            T temp = list[j];
-      		list[j] = list[i];
-      		list[i] = temp;
-        }	
+        while(left < right && list[j] >= pivot) right--;
+        list[left] = list[right];
+        while(left < right && list[i] <= pivot) left++;
+        list[right] = list[left];
     }
-  
-  	list[left] = list[i];
-  	list[i]=  pivot;
-  
-  	return i;
+    
+    list[left] = pivot;
+    return left;
   	
 }
 ```
@@ -542,7 +530,7 @@ enum转换，一般也就跟 int 和 string 转换
    Image[] Images = this.transform.GetComponentsInChildren<Image>(true);
    ```
 
-   ​
+   
 
 此外，顺便说一下：数组的`ToList()`
 
