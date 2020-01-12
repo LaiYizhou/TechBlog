@@ -109,7 +109,7 @@ int[] GetTwoNum(int[] a)
 
 N个数字，其中某个数字出现了1次，剩下的都出现了K次，找出这个出现了一次的数字
 
-详见《[程序员代码面试指南——IT名企算法与数据结构题目最优解](https://github.com/LaiYizhou/2017Work/tree/master/EBooks)》 P329
+详见《程序员代码面试指南——IT名企算法与数据结构题目最优解》 P329
 
 
 
@@ -242,7 +242,7 @@ void QuickSort(ref List<T> list, int left, int right)
 ```c#
 int Partition(ref List<T> list, int left, int right)
 {
-    T pivot = list[left];
+    T pivot = list[(left + right) >> 1];
     while(left < right)
     {
         while(left < right && list[j] >= pivot) right--;
@@ -257,7 +257,7 @@ int Partition(ref List<T> list, int left, int right)
 }
 ```
 
-还有一种`Partition()` 实现方法，详见《[剑指Offer](https://github.com/LaiYizhou/2017Work/tree/master/EBooks)》P63
+还有一种`Partition()` 实现方法，详见《剑指Offer》P63
 
 
 
@@ -471,7 +471,7 @@ enum转换，一般也就跟 int 和 string 转换
 
 关键是：**从string转成enum**
 
-利用Enum的静态方法：`EColor color = (EColor) Enum.Parse( typeof(EColor), "GREEN");`
+利用Enum的静态方法：`EColor color = (EColor) Enum.Parse(typeof(EColor), "GREEN");`
 
 
 
@@ -886,6 +886,7 @@ cos\theta =
 \frac{\vec{a} · \vec{b}}
 {|\vec{a}| · |\vec{b}|}
 $$
+
 比如，有6位用户，各自评论了6本书
 
 |       | Book1 | Book2 | Book3 | Book4 | Book5 | Book6 |

@@ -21,9 +21,11 @@
 
   ​    
 
-[2017 WorkNote Summary]()
+[2019 WorkNote Summary]((2019 WorkNote Summery.md))
 
-2018 WorkNote Summary
+[2018 WorkNote Summary]((2018 WorkNote Summery.md))
+
+[2017 WorkNote Summary](2017 WorkNote Summery.md)
 
 
   ​  
