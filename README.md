@@ -21,11 +21,11 @@
 
   ​    
 
-[2019 WorkNote Summary]((2019 WorkNote Summery.md))
+[2019 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2019%20WorkNote%20Summary.md)
 
-[2018 WorkNote Summary]((2018 WorkNote Summery.md))
+[2018 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2018%20WorkNote%20Summary.md)
 
-[2017 WorkNote Summary](2017 WorkNote Summery.md)
+[2017 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2017%20WorkNote%20Summary.md)
 
 
   ​  
