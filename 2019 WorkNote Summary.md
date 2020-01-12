@@ -1,4 +1,8 @@
-### 1. C# 可空类型
+### 1. Wave Function Collapse
+
+中文翻译为“波函数坍缩算法”，可以程序自动生成无限大地图
+
+https://github.com/mxgmn/WaveFunctionCollapse
 
 ```c#
 int? num1 = null;
@@ -6,275 +10,136 @@ int? num1 = null;
 
 
 
-### 2. C# 自动实现属性
+### 2. OpenGL
+
+https://learnopengl.com/Introduction
+
+
+
+### 3. 算法：树问题 模板
+
+
+
+### 4. 算法：求一个数二进制的1的最低位
+
+比如
+
+5（0110） 1的最低位是 2
 
 ```c#
-public int Value { set; get;}
-```
-
-这就叫“自动实现属性”
-
-第一，不能再提供方法体；第二，可以用来限制“只读不写”
-
-
-
-### 3. FlagsAttribute 属性
-
-常与**枚举**配合使用
-
-官方文档：https://docs.microsoft.com/en-us/dotnet/api/system.flagsattribute?redirectedfrom=MSDN&view=netframework-4.7.2
-
-
-
-### 4. 拖拽
-
-```c#
-void IDragHandler.OnDrag(PointerEventData eventData)
- {
-RectTransformUtility.ScreenPointToWorldPointInRectangle(this.GetComponent<RectTransform>(), Input.mousePosition, Camera.main, out newPosition);
-
-        //transform.position = newPosition + GameHelper.ChipOnDragPosOffset;
-        //transform.localScale = GameHelper.ChipOnDragScale;
-}
+ x &（-x） //0110 & 1010
 ```
 
 
 
-### 5. 算法：打印二叉树层级平均数
+### 5. 算法
+
+- Segment Tree
+  - 解决 某个区间内的某值（比如和、最大值、最小值）
+  - 因为每个节点都用一个start 和 end 来代表一个区间
+  - 然后 提供三个方法 Build、Update、Query 都根据递归来操作
+- Fenwick Tree / Binary Indexed Tree
+  - 解决 范围求和 的问题，当然完全可以用前n项和 然后Si-Sj，但是 一旦数据是更新的，用这个更好
+  - 因为不管是更新Update() 还是求前n项和 Query() 都是 O(logN)
+- Union Find
+  - 解决 “通过两两同事关系 判断是否在同一个单位里” 的问题
+
+
+
+### 6. 算法
+
+大小写字母转换
+
+可以 **直接异或32**
 
 ```c#
-public IList<double> AverageOfLevels(TreeNode root)
-{
-        List<double> res = new List<double>();
-        if (root == null) return res;
-
-        Queue<TreeNode> queue = new Queue<TreeNode>();
-        queue.Enqueue(root);
-
-        while (queue.Count > 0)
-        {
-            int count = queue.Count;
-            int num = 0;
-            double sum = 0;
-
-            while (count > 0)
-            {
-                TreeNode node = queue.Dequeue();
-                count--;
-
-                sum += root.val; num++;
-
-                if(node.left != null) queue.Enqueue(node.left);
-                if(node.right != null) queue.Enqueue(node.right);
-
-            }
-
-            double d = sum / num;
-            res.Add(d);
-        }
-
-        return res;
-
-}
-```
-
-有两点需要注意：
-
-第一，除了层级遍历之外，还需要把**每一层划分清楚**
-
-第二，用来求和的 `sum` 需要申明为 `double` , 否则会出现**溢出**错误
-
-
-
-### 6. C# 无符号右移
-
-在C#中没有，所以，需要**先转成无符号数再右移**
-
-```c#
-int num = -12;
-num = (int)((uint)num >> 1);
-```
-
-其他情况，一律视为**除以2的高效率形式**
-
-比如，`  int num = -12; num = num >> 1; ` 此时，` num ` 等于 -6
-
-
-
-### 7. 算法：统计1到N出现“1”的个数
-
-直接说结论吧：
-
-比如：N = 36271。
-
-从低位到高位遍历一遍，比如，遍历到百位2，那么，我们把前面的36定义为 `highNumber` ，百位权值100定义为 `weight` ，后面的71定义为 `lowNumber` ，当前值2定义为 `curNumber` 
-
-所以，逻辑就是：
-
-- 如果 curNumber > 1，那么，当前和为 `( highNumber + 1 ) * weight`
-- 如果 curNumber == 1，那么，当前和为 ` hightNumber * weight + lowNumber + 1 `
-
-- 如果 curNumber == 0，那么，当前和为 ` highNumber * weight `
-
-所以，从低位到高位遍历一遍，把所有 当前和 加起来即可
-
-```c#
-private int GetOneSum(int number)
-{
-    int res = 0;
-
-    int weight = 1;
-    int lowNumber = 0;
-    int highNumber = 0;
-    int curNumber = 0;
-
-    while(number % weight != 0)
-    {
-        lowNumber = number - (number / weight) * weight;
-        highNumber = number / (weight * 10);
-        curNumber = (number / weight) % 10;
-
-        int sum = 0;
-        if (curNumber > 1)
-        sum = (highNumber + 1) * weight;
-        else if (curNumber == 1)
-        sum = highNumber * weight + lowNumber + 1;
-        else
-        sum = highNumber * weight;
-
-        res += sum;
-        weight *= 10;
-    }
-
-    return res;
-}
+char ch = 'a';
+ch = ch ^ 32;
 ```
 
 
 
-### 8.  virtual、override和new
-
-![20190108182953](Images/20190108182953.jpg)
-
-上述代码关系中，如下打印结果是什么？
-
-![20190108183008](Images/20190108183008.jpg)
-
-三点：
-
-- 总的逻辑是：先看**声明类**，再看**实例类**；如果是非虚，直接执行；如果是override，直接执行；其他情况，一直往父类找，找到override或者声明类为止
-- 上述，比如 `B` 中的 `G()` ，虽然没有写 new，但**不写则是默认为new**
-- 答案是：1, 3, 3, 1, 6; 2, 2, 2, 2, 7
+### 7. C++ 常量指针和指针常量
 
 
 
-### 9. 算法：[动态规划]最长公共子串长度
+### 8.  C++ 数组指针和指针数组
 
-题目很简单：比如，hish 和 fish, 最长公共子串是 ish, 所以长度为3
 
-![20190119124855](Images/20190119124855.jpg)
 
-三点：
+### 9. Lua和C#
 
-- 第一行和第一列 **初始化为0**
-- 状态方程如图所示：**不同则为0，相同则左上角加1**
-- 最大值不一定在最后一格，需要用比较值max
+Lua和C#之间传参、返回时，尽可能不要传递以下类型
+
+- 严重类： Vector3/Quaternion等Unity值类型，数组
+- 次严重类：bool string 各种object
+- 建议传递：int float double
+
+来源：https://blog.uwa4d.com/archives/USparkle_Lua.html
+
+
+
+### 10. 卡特兰数
+
+http://lanqi.org/interests/10939/
+
+
+
+### 11. BinarySearch()
 
 ```c#
-public int LCS(string s1, string s2)
-{
-    int len1 = s1.Length;
-    int len2 = s2.Length;
-    int result = 0;
+List<int> list = new List<int>() {0, 2, 4, 5, 6, 10};
+int index = list.BinarySearch(4);
+```
 
-    int[,] dp = new int[len1 + 1, len2 + 1];
+**前提是：有序**
 
-    for (int i = 0; i <= len1; i++) 
-    {  
-        for(int j = 0; j <= len2; j++) 
-        {  
-            if(i == 0 || j == 0) 
-            {  
-                dp[i,j] = 0;  
-            } else if (s1[i] == s2[j]) 
-            {  
-                dp[i,j] = dp[i - 1, j - 1] + 1;  
-                result = Math.Max(dp[i, j], result);  
-            } else 
-            {  
-                dp[i,j] = 0;  
-            }  
-        }  
-    }  
-    return result;  
-}  
+- 如果找到了，返回index（从0开始计数）
+- 如果没找到，就返回下一个比它大的index的反码
+
+所以
+
+```c#
+if (index < 0) 
+	index = ~index;
+```
+
+返回值小于0，那么 ~index 就是下一个比它大的下标
+
+比如，5的反码是-6 （因为 5的反码 + 1 是 -5，所以 5的反码 就是 -6）
+
+
+
+### 12. Convert.ToString
+
+string  valueString  =  Convert.ToString( value,  radix); 
+
+- value  整数值
+
+- radix  为 2, 8,10, 16，分别代表进制
+
+```c#
+int i=8;    
+string str_value = Convert.ToString(8, 2);  
+//str_value	结果为1000   
 ```
 
 
 
-### 10. 静态构造函数
+### 13. Showing particles in Screen Space - Overlay canvas
 
-```c#
-public class Student
-{
-    static Student()
-    { ... }
-}
-```
-
-特点是：
-
-- **static + 类名**，不能有访问修饰符、不能带参数
-- 只能有一个 静态构造函数
-- 静态构造函数 和 非静态构造函数 可以共存
-
-作用：
-
-- 初始化 静态字段（静态字段当然属于**类级别的项**）
-
-调用：
-
-- 在引用任何静态成员之前、在创建类的实例之前
-- 系统自动调用
+https://www.universityofgames.net/showing-particles-in-screen-space-overlay-canvas-unity-engine/
 
 
 
-### 11. *ContainsKey* 和 *TryGetValue*
+### 14.题外话
 
-结论就是：**推荐使用TryGetValue**
+1. Unity引擎渲染技术学习极简路线图
 
-更高效，时间复杂度是O(1)
+   https://zhuanlan.zhihu.com/p/33432743
 
-比如，有一个经典的用法，计数（有则加1，没有则从1开始）
+2. 《王者荣耀》和 Unity3D
 
-```c#
-var value = 120;
-if (dictionary.TryGetValue(key, out value))
-{
-	dictionary[key] = ++value;
-}
-else
-{
-	dictionary.Add(key, 1);
-}
-```
+   http://youxiputao.com/articles/11842
 
-需要注意的是，如果key不存在，则返回false，那么value值会变成初始值（即使前面赋成了120，这里初始值的意思是，引用类型为null，值类型为0）
-
-
-
-### 12. 趣题：输入自身的代码
-
-```c#
-// 这些代码必须写成一行
-class writeme{static void Main(){string s="class writeme{{static void Main(){{string s={0}{1}{0};System.Console.Write(s,(char)34,s);}}}}"; System.Console.Write(s,(char)34,s);}}
-```
-
-
-
-### 13. 题外传送门
-
-1. Entitas框架 https://github.com/sschmid/Entitas-CSharp
-2. 3Blue1Brown 线性代数视频 <http://www.bilibili.com/video/av6731067/#page=1>
-3. 插件InkPainter https://github.com/EsProgram/InkPainter
-4. SetProperty https://github.com/LMNRY/SetProperty
+   https://www.twblogs.net/a/5db3a6a1bd9eee310ee6a388

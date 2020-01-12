@@ -1,5 +1,14 @@
 # Work Summary
 
+
+[2019 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2019%20WorkNote%20Summary.md)
+
+[2018 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2018%20WorkNote%20Summary.md)
+
+[2017 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2017%20WorkNote%20Summary.md)
+
+  ​  
+
 这是一个日常工作笔记的年度总结和整理
 
 工作环境：
@@ -20,15 +29,6 @@
 - 内容中有些涉及知识体系较大的，因此只列举了标题，比如 `第10点 正则表达式` 
 
   ​    
-
-[2019 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2019%20WorkNote%20Summary.md)
-
-[2018 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2018%20WorkNote%20Summary.md)
-
-[2017 WorkNote Summary](https://github.com/LaiYizhou/Work_Summary/blob/master/2017%20WorkNote%20Summary.md)
-
-
-  ​  
 
 个人公众号：每周（every_week）
 
