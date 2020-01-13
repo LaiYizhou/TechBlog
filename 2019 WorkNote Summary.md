@@ -4,10 +4,6 @@
 
 https://github.com/mxgmn/WaveFunctionCollapse
 
-```c#
-int? num1 = null;
-```
-
 
 
 ### 2. OpenGL
